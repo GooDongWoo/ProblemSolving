@@ -1,4 +1,3 @@
-from collections import deque
 n=int(input())
 fruit_list=list(map(int,input().split()))
 
