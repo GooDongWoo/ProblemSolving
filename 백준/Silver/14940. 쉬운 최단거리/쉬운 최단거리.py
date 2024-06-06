@@ -44,4 +44,4 @@ def bfs(start_row,start_col):
 bfs(start_y,start_x)
 
 for i in range(n):
-    print(*cost_row_col_mat[i])
+    sys.stdout.write(f'{" ".join(list(map(str,cost_row_col_mat[i])))}\n')
