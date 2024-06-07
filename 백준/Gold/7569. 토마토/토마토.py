@@ -24,15 +24,15 @@ def bfs():
     q=deque()    
     for height,row,col,day in riped_list:
         q.append((height,row,col,day))
+        visited[height][row][col]=1
     
     while q:
         parent=q.popleft()
-        if(visited[parent[0]][parent[1]][parent[2]]==0):
-            visited[parent[0]][parent[1]][parent[2]]=1
-            max_date=max(max_date,parent[3])
-            for dy,dx,dz in zip(dy_list,dx_list,dz_list):
-                if(0<=parent[0]+dz<=(h-1) and 0<=parent[1]+dy<=(n-1) and 0<=parent[2]+dx<=(m-1) and visited[parent[0]+dz][parent[1]+dy][parent[2]+dx]==0):
-                    q.append((parent[0]+dz,parent[1]+dy,parent[2]+dx,parent[3]+1))
+        max_date=max(max_date,parent[3])
+        for dy,dx,dz in zip(dy_list,dx_list,dz_list):
+            if(0<=parent[0]+dz<=(h-1) and 0<=parent[1]+dy<=(n-1) and 0<=parent[2]+dx<=(m-1) and visited[parent[0]+dz][parent[1]+dy][parent[2]+dx]==0):
+                visited[parent[0]+dz][parent[1]+dy][parent[2]+dx]=1
+                q.append((parent[0]+dz,parent[1]+dy,parent[2]+dx,parent[3]+1))
     return max_date
 
 def chck0(list_3d):
