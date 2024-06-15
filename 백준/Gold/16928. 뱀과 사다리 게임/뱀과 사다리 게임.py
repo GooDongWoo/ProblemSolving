@@ -35,15 +35,3 @@ def newBFS():
 
 newBFS()
 print(cost_list[100])
-''' # 그냥 queue써서 쌉노가다 돌리는게 나을듯
-#도착하는데 걸리는 코스트(1~6으로만 갈때 or 뱀으로 내려올때 )
-#근데 만약 뱀에서 내려올때는 뱀에서의 최적화된 코스트를 모르지 않나? 대충 포문 10번 돌리면 되려나???
-
-#만약 여기서 올라가는 게 있으면 올라가는 곳에 코스트 적용(사다리)
-# for i in range(1,101):
-#     tmp=inf
-#     if(i in snake_dict):
-        
-#     cost_list[i]=min(cost_list[i],tmp)
-
-'''
