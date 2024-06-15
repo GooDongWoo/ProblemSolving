@@ -1,14 +1,24 @@
-N, M = map(int, input().split())
-tree = list(map(int, input().split()))
-start, end = 1, max(tree)
-while start <= end: 
-    mid = (start+end) // 2
-    log = 0 
-    for i in tree:
-        if i >= mid:
-            log += i - mid
-    if log >= M:
-        start = mid + 1
+n,m = map(int, input().split())
+tree_list=list(map(int,input().split()))
+tree_list.sort(reverse=True) #내림차순
+sum_list=[0]*len(tree_list)
+sum_list[0]=tree_list[0]
+res=0
+idx=-1
+if(n==1):
+    print(tree_list[0]-m)
+else:
+    for i in range(1,len(tree_list)):
+        sum_list[i] = sum_list[i-1] + tree_list[i]
+        res = sum_list[i]-(tree_list[i]*(i+1))
+        if(res>=m):
+            idx=i
+            break
+    if (res==m):
+        print(tree_list[idx])
+    elif (idx != -1):
+        x=int((sum_list[idx-1]-m)/idx)
+        print(x)
     else:
-        end = mid - 1
-print(end)
+        x=int((sum_list[len(tree_list)-1]-m)/len(tree_list))
+        print(x)
