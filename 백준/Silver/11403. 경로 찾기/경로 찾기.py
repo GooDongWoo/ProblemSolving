@@ -10,13 +10,13 @@ def bfs(start):
     
     q=deque()
     q.append(start)
-    parent=q.pop()
+    parent=q.popleft()
     for child,ox in enumerate(adj_mat[parent]):
         if(ox==1 and visited[child]==0):
             q.append(child)
 
     while q:
-        parent=q.pop()
+        parent=q.popleft()
         if(visited[parent]==0):
             visited[parent]=1
             for child,ox in enumerate(adj_mat[parent]):
