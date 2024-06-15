@@ -33,7 +33,6 @@ while(deq2):
             for _ in range(length_bomb-1):
                 if(deq1):
                     deq2.appendleft(deq1.pop())       
-        
 if(deq1): 
     print("".join((list(deq1))))
 else:
