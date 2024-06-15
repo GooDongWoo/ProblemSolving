@@ -31,16 +31,3 @@ def findZ(N,r,c):
         return findZ(N-1,r,c)
 
 print(findZ(N,r,c))
-
-
-'''
-def zTraversal(n):
-    global s
-    if(n==1):
-        #go
-        s[0][0]
-        s[0][2**(n-1)]
-        s[2**(n-1)][0]
-        s[2**(n-1)][2**(n-1)]
-    #deviding
-'''
