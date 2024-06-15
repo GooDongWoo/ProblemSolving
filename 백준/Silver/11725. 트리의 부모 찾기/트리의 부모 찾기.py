@@ -31,8 +31,3 @@ lineNode(1)
 
 for i in range(2,len(node_list)):
     print(node_list[i].parent)
-    
-
-
-
-
