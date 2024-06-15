@@ -1,17 +1,18 @@
 import sys
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-a = list(map(int, input().split()))
+num_item, target= map(int, input().split())
+item_list = list(map(int, input().split()))
 
-r = [0] * m # m으로 나눈 나머지 담는 곳
-prefixSum = 0
-for i in range(n):
-    prefixSum += a[i]
-    r[prefixSum % m] += 1
+tmp_sum =0
+count_list=[0]*target
 
-ans = r[0] # 나머지가 0이 되는 경우의 수
-for i in range(m):
-    # nC2 = n(n-1)/2
-    ans += r[i] * (r[i]-1) // 2
-print(ans)
+for i in range(num_item):
+    tmp_sum=(tmp_sum+item_list[i])%target
+    count_list[tmp_sum]+=1
+
+result = count_list[0]
+for i in (count_list):
+    result+=i*(i-1)//2
+
+print(result)
