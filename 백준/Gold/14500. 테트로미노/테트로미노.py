@@ -58,18 +58,3 @@ for i in range(n):
                 if(result>max1):#max값과 비교 후 갱신
                     max1=result
 print(max1)
-        
-        
-'''
-def rotatep90(set1):
-    tmp=[]
-    for item in set1:
-        tmp.append((item[1],item[0]))
-    return set(sorted(tmp))
-
-def mirrorlr(set1):
-    tmp=[]
-    for item in set1:
-        tmp.append((item[0],-item[1]+3))
-    return set(sorted(tmp))
-'''
