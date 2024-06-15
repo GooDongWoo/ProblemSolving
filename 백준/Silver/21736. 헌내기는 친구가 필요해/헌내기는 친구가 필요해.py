@@ -21,7 +21,7 @@ def dfs(sx,sy):
     stck1=deque()
     stck1.append((sx,sy))
     while(stck1):
-        tmp=stck1.popleft()
+        tmp=stck1.pop()
         if (visited[tmp[1]][tmp[0]]==0): #방문 안햇으면
             visited[tmp[1]][tmp[0]]=1
             if(map1[tmp[1]][tmp[0]]=='P'):
@@ -36,7 +36,3 @@ if(cnt==0):
     print('TT')
 else:
     print(cnt)
-
-
-
-
