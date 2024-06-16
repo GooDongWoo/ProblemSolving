@@ -1,5 +1,6 @@
 import sys
 n, m = map(int, sys.stdin.readline().split())
+tmp=[0]*1000
 n_arr = [0 for _ in range(10)]
 m_arr = [0 for _ in range(10)]
 n -= 1
