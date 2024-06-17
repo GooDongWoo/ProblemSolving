@@ -1,5 +1,5 @@
 import sys
-number=1033750
+number=1003002
 n_list=[1]*number
 n_list[0]=n_list[1]=0
 for i in range(2,len(n_list)):
