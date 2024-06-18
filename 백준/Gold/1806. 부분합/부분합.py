@@ -8,7 +8,7 @@ for idx in range(1,len(sum_list)):
 possible_val=inf
 start=0
 end=1
-while(start<=end and end<n+1 and start<n+1):
+while(end<n+1):
     if(sum_list[end]-sum_list[start]<s):#end를 늘려서 될때까지 늘린다.
         end+=1
     elif(sum_list[end]-sum_list[start]>=s):
