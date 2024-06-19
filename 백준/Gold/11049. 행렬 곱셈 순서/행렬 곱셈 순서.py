@@ -1,11 +1,10 @@
-n = int(input())
-mat = [tuple(map(int, input().split())) for i in range(n)]
-
-dp = [[0]*n for i in range(n)]
-for cnt in range(n-1):
-    for i in range(n-1-cnt):
-        j = i+cnt+1
-        dp[i][j] = 2**31
-        for k in range(i, j):
-            dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + mat[i][0]*mat[k][1]*mat[j][1])
-print(dp[0][-1])
+import sys
+N = int(sys.stdin.readline())
+mat_list = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+dp_mat = [[0 for _ in range(N)] for _ in range(N)]
+for diag in range(1, N):
+    for start in range(N-diag):
+        dp_mat[start][start+diag] = int(1e9)
+        for t in range(start, start+diag):
+            dp_mat[start][start+diag] = min(dp_mat[start][start+diag],dp_mat[start][t]+dp_mat[t+1][start+diag] + mat_list[start][0] * mat_list[t][1] * mat_list[start+diag][1])
+sys.stdout.write(f'{dp_mat[0][N-1]}')
