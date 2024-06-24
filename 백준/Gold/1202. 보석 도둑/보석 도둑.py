@@ -9,6 +9,8 @@ ans=0
 value_heap=[]
 #않이!!!!!!!! 정렬된 2개 리스트로 힙으로 이리저리 하는거... 발상이 미친거 아닌가.. 머지소트랑 비슷하게 복잡도 줄이는데;; 하;; 각각의 정렬로 총 정렬을 이리저리 할 수 있다...
 for bag_limit in bag_list:
+    if(bag_limit>1000000):
+        break
     while jewerly_list and jewerly_list[0][0]<=bag_limit:
         heapq.heappush(value_heap,-heapq.heappop(jewerly_list)[1])
     if(value_heap):
