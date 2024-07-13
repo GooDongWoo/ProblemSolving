@@ -3,11 +3,6 @@ h,w=map(int,sys.stdin.readline().split())
 walls=[*map(int,sys.stdin.readline().split())]
 start=0
 end=len(walls)-1
-while not walls[start] or not walls[end]:
-    if(not walls[start]):
-        start+=1
-    elif(not walls[end]):
-        end-=1
 res=0
 def sol(start):
     global h,w,walls,res,end
