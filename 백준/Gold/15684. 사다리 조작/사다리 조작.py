@@ -57,7 +57,7 @@ if(simul()):
 
 length=len(candidates)
 if(length>=1):
-    q1=[[candidates[i[0]]] for i in combi(length,1)]
+    q1=[[candidates[i[0]]] for i in cb([i for i in range(length)],1)]
     for cs in q1:
         for i,j in cs:
             mat[i][j]=1
@@ -68,7 +68,7 @@ if(length>=1):
             mat[i][j]=0
 
 if(length>=2):
-    q2=[[candidates[i[0]],candidates[i[1]]] for i in combi(length,2)]
+    q2=[[candidates[i[0]],candidates[i[1]]] for i in cb([i for i in range(length)],2)]
     for cs in q2:
         #cs안에서 하면안되는 경우 체크
         if(chckincs(cs)): 
@@ -81,8 +81,8 @@ if(length>=2):
         for i,j in cs:
             mat[i][j]=0
 
-if(length>=3):                
-    q3=[[candidates[i[0]],candidates[i[1]],candidates[i[2]]] for i in combi(length,3)]
+if(length>=3):
+    q3=[[candidates[i[0]],candidates[i[1]],candidates[i[2]]] for i in cb([i for i in range(length)],3)]
     for cs in q3:
         #cs안에서 하면안되는 경우 체크
         if(chckincs(cs)): 
