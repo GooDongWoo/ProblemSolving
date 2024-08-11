@@ -45,17 +45,12 @@ def autumn():
                             ny,nx=dy+i,dx+j
                             if(0<=ny<n and 0<=nx<n):
                                 trees[ny][nx].appendleft(1)
-
-def winter():
-    global n,m,k,added_nut,trees,cur_nutri,dys,dx
-    for i in range(n):
-        for j in range(n):
+                                
             cur_nutri[i][j]+=added_nut[i][j]
 
 for _ in range(k):
     spring()
     autumn()
-    winter()
 
 cnt=0
 for i in range(n):
