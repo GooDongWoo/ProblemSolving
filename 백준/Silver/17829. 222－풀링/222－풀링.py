@@ -1,5 +1,6 @@
-n=int(input())
-mat=[list(map(int,input().split())) for _ in range(n)]
+import sys
+n=int(sys.stdin.readline())
+mat=[list(map(int,sys.stdin.readline().split())) for _ in range(n)]
 dy_dx=[(0,0),(1,0),(0,1),(1,1)]
 while n//2:
     n=n//2
@@ -10,4 +11,3 @@ while n//2:
             nmat[i][j]=tmp[-2]
     mat=nmat
 print(nmat[-1][-1])
-    
