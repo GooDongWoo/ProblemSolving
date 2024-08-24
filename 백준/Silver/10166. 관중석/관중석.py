@@ -1,17 +1,16 @@
-def  gcd(a1,a2):
-    b=max(a1,a2)
-    s=min(a1,a2)
-    if(s==0):return -1
-    if(b%s==0):return s
-    return gcd(s,b%s)
+from math import gcd
 
-d1,d2=map(int,input().split())
-occupied=set()
-for nth in range(d1,d2+1):
-    for j in range(nth):
-        res=gcd(j,nth)
-        if(res==-1):
-            occupied.add((0,360))
-        else:
-            occupied.add((j//res,nth//res))
-print(len(occupied))
+def solve():
+    d1,d2=map(int,input().split())
+    occupied=[[0]*(d2+1)for _ in range(d2+1)]
+    ans=0
+    for nth in range(d1,d2+1):
+        for j in range(1,nth+1):
+            res=gcd(j,nth)
+            r,c=j//res,nth//res
+            if(occupied[r][c]==0):
+                occupied[r][c]=1
+                ans+=1
+    print(ans)
+
+solve()
