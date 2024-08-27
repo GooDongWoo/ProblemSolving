@@ -1,6 +1,7 @@
+import sys
 from collections import deque
-n,m=map(int,input().split())
-mat=[list(map(int,input().split())) for _ in range(n)]
+n,m=map(int,sys.stdin.readline().split())
+mat=[list(map(int,sys.stdin.readline().split())) for _ in range(n)]
 dxs=[-1,1,0,0]
 dys=[0,0,-1,1]
 v=[[0]*m for _ in range(n)]
