@@ -1,6 +1,7 @@
 import sys
 input=sys.stdin.readline
 print=sys.stdout.write
+sys.setrecursionlimit(int(1e9))
 
 n_node=int(input())
 cut =0
