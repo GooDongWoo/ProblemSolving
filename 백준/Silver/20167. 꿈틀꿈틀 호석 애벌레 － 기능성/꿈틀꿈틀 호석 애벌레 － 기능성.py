@@ -20,7 +20,9 @@ for ca in cases:
     cur_s=0
     stacked_s=0
     for flag,i in zip(ca,foods):
-        if(flag==0): continue
+        if(flag==0): 
+            cur_s=0
+            continue
         cur_s+=i
         if(cur_s>=k):
             stacked_s+=(cur_s-k)
