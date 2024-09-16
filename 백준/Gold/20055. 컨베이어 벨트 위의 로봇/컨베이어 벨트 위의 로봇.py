@@ -12,17 +12,20 @@ def rotate():
     a.rotate(1)
 
 def move():
-    global a,robots
+    global a,robots,zero_cnt
     for idx in range(n-2,0,-1):
         if(robots[idx]!=0 and robots[idx+1]==0 and a[idx+1]>0):
             robots[idx]=0
             robots[idx+1]=1
             a[idx+1]-=1
+            if(a[idx+1]==0): zero_cnt+=1
 
 def load():
+    global zero_cnt
     if(a[0]!=0):
         robots[0]=1
         a[0]-=1
+        if(a[0]==0): zero_cnt+=1
 
 def zeroCnting():
     tmp=0
@@ -37,6 +40,5 @@ while zero_cnt<k:
     rotate()
     move()
     load()
-    zero_cnt=zeroCnting()
 
 print(level)
