@@ -1,7 +1,8 @@
-t=int(input())
+import sys
+t=int(sys.stdin.readline())
 for _ in range(t):
-    n,x,y=map(int,input().split())
-    vs=list(map(int,input().split()))
+    n,x,y=map(int,sys.stdin.readline().split())
+    vs=list(map(int,sys.stdin.readline().split()))
     max1=0
     for i in range(n-1):
         max1=max(max1,vs[i])
@@ -9,10 +10,10 @@ for _ in range(t):
     s=vs[-1]
     #case1, 항상 우승
     if(s>max1):
-        print(0)
+        sys.stdout.write(f'0\n')
     #case2, 우승 ㄴㄴ
     elif((x-y)>=(time_limit-1)*s):
-        print(-1)
+        sys.stdout.write(f'-1\n')
     #case3, 직접 구해야함
     else:
-        print(int((x-(time_limit-1)*s))+1)
+        sys.stdout.write(f'{int((x-(time_limit-1)*s))+1}\n')
