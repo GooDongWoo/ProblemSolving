@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(int(1e9))
 input=sys.stdin.readline
 n,m=map(int,input().split())
 adj_v=[[] for _ in range(n)]
