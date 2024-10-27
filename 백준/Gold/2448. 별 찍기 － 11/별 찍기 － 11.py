@@ -32,4 +32,4 @@ for i in range(1,k+1):
     base=tmp
 
 for line in base:
-    print(*line,sep='')
+    sys.stdout.write(f"{''.join(line)}\n")
