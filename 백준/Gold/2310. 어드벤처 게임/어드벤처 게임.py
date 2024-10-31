@@ -32,7 +32,7 @@ while 1:
             if(chambers[nxt].type=='L'):newmoney=max(chambers[nxt].cost,money)
             elif(chambers[nxt].type=='T'):newmoney=money-chambers[nxt].cost
             else:newmoney=money
-            if newmoney>=0 and newmoney>v[nxt]:
+            if newmoney>v[nxt]:
                 v[nxt]=newmoney
                 q.append((nxt,newmoney))
     if not sFlag:print("No")
