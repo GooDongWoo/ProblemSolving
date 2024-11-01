@@ -1,0 +1,34 @@
+import sys
+input=sys.stdin.readline
+d=dict()
+d['A']=2
+d['B']=2
+d['C']=2
+d['D']=3
+d['E']=3
+d['F']=3
+d['G']=4
+d['H']=4
+d['I']=4
+d['J']=5
+d['K']=5
+d['L']=5
+d['M']=6
+d['N']=6
+d['O']=6
+d['P']=7
+d['Q']=7
+d['R']=7
+d['S']=7
+d['T']=8
+d['U']=8
+d['V']=8
+d['W']=9
+d['X']=9
+d['Y']=9
+d['Z']=9
+s=input().strip()
+ans=0
+for i in s:
+    ans+=d[i]+1
+print(ans)
