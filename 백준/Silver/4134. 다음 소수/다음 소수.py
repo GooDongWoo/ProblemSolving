@@ -1,6 +1,6 @@
 import sys
 input=sys.stdin.readline
-MAX=(int(int(1e10)**(0.5))+1)
+MAX=(int(int(5e9)**(0.5))+1)
 primes=[True]*MAX
 primes[0]=primes[1]=False
 for i in range(MAX):
