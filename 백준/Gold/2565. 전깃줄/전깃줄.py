@@ -21,6 +21,6 @@ for i in range(1,n):
             if(tmpLIS[j]>tmpLIS[k]):
                 minidp[j]=max(minidp[j],minidp[k]+1)
 
-    result=max(minidp) if minidp else 1
+    result=max(minidp)
     dp[i]=max(dp[i-1],result)
 print(n-dp[-1])
