@@ -1,13 +1,13 @@
+import sys
+input=sys.stdin.readline
+
 def prod(a,b,c):
-    new_b=b//2
     if(b==1):
         return a%c
-    if(new_b==b-new_b):
-        return ((prod(a,new_b,c)%c)**2)%c
+    if(b%2==0):
+        return ((prod(a,b//2,c)%c)**2)%c
     else:
-        t1=prod(a,new_b,c)%c
-        t2=prod(a,b-new_b,c)%c
-        return (t1*t2)%c
+        return ((((prod(a,b//2,c))**2)%c)*a)%c
 
 a,b,c=map(int,input().split())
 print(prod(a,b,c))
