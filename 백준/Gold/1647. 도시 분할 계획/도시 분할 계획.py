@@ -2,7 +2,6 @@ import sys
 import heapq
 input=sys.stdin.readline
 
-INF=int(1e9)
 n,m=map(int,input().split())
 
 adj_v = [[] for _ in range(n)]
