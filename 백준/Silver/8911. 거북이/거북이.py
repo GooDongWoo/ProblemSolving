@@ -32,4 +32,4 @@ for _ in range(t):
         minx = min(minx, l1[i][1])
         maxx = max(maxx, l1[i][1])
     
-    print((maxx - minx) * (maxy - miny))
+    sys.stdout.write(f'{(maxx - minx) * (maxy - miny)}\n')
