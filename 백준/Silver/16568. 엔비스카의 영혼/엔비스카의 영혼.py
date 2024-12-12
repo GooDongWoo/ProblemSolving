@@ -1,7 +1,7 @@
 import sys
 input = sys.stdin.readline
 
-INF = int(1e9)
+INF = int(1e7)
 n, a, b = map(int, input().split())
 a, b = min(a, b), max(a, b)
 dp = [INF] * (n + 1)
