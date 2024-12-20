@@ -21,4 +21,4 @@ def F(r1, c1, r2, c2):
     return (pref_sum[r2][c2] - pref_sum[r1 - 1][c2] - pref_sum[r2][c1 - 1] + pref_sum[r1 - 1][c1 - 1]) // ((r2 - r1 + 1) * (c2 - c1 + 1))
 
 for i in range(q):
-    print(F(*qs[i]))
+    sys.stdout.write(f'{(F(*qs[i]))}\n')
