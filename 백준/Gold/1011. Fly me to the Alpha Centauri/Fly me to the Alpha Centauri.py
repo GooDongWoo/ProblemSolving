@@ -23,4 +23,4 @@ for _ in range(t):
     maximum_jump = bsl(cache, dist)
     diff = dist - cache[maximum_jump]
     plus_cnt = diff // maximum_jump if diff % maximum_jump == 0 else diff // maximum_jump + 1
-    print(maximum_jump + maximum_jump - 1 + plus_cnt)
+    sys.stdout.write(f'{(maximum_jump + maximum_jump - 1 + plus_cnt)}\n')
