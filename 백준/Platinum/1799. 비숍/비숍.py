@@ -1,79 +1,49 @@
 import sys
-input=sys.stdin.readline
+input = sys.stdin.readline
 
-def chck(r, c):
-    global n, mat
-    #lu
-    incre = 1
-    while 1:
-        nr, nc = r - incre , c - incre
-        if 0 <= nr < n and 0 <= nc < n:
-            if (mat[nr][nc] == 2): return False
-        else: break
-        incre += 1
-    #ru
-    incre = 1
-    while 1:
-        nr, nc = r - incre , c + incre
-        if 0 <= nr < n and 0 <= nc < n:
-            if (mat[nr][nc] == 2): return False
-        else: break
-        incre += 1
-    #rd
-    incre = 1
-    while 1:
-        nr, nc = r + incre , c + incre
-        if 0 <= nr < n and 0 <= nc < n:
-            if (mat[nr][nc] == 2): return False
-        else: break
-        incre += 1
-    #ld
-    incre = 1
-    while 1:
-        nr, nc = r + incre , c - incre
-        if 0 <= nr < n and 0 <= nc < n:
-            if (mat[nr][nc] == 2): return False
-        else: break
-        incre += 1
-    return True
+def get_positions(n, mat):
+   white = []  # 흰 칸 위치
+   black = []  # 검은 칸 위치
+   for i in range(n):
+       for j in range(n):
+           if mat[i][j] == 0:
+               continue
+           if (i + j) % 2 == 0:
+               white.append((i, j))
+           else:
+               black.append((i, j))
+   return white, black
 
-def bt1(idx):
-    global n, mat, l1, res1
-    if idx == len(l1):
-        res1 = max(res1, sum([1 for y, x in l1 if mat[y][x] == 2]))
-    else:
-        y, x = l1[idx]
-        if chck(y, x):
-            mat[y][x] = 2
-            bt1(idx+1)
-            mat[y][x] = 1
-            bt1(idx+1)
-        else:bt1(idx+1)
+def solve(positions):
+   n = len(positions)
+   if n == 0:
+       return 0
+       
+   def backtrack(idx, diag1, diag2, count):
+       if idx == n:
+           return count
+           
+       result = backtrack(idx + 1, diag1, diag2, count)  # 비숍을 놓지 않는 경우
+       
+       y, x = positions[idx]
+       # 비숍을 놓을 수 있는 경우
+       if not (diag1 & (1 << (y + x)) or diag2 & (1 << (y - x + N - 1))):
+           new_diag1 = diag1 | (1 << (y + x))
+           new_diag2 = diag2 | (1 << (y - x + N - 1))
+           result = max(result, backtrack(idx + 1, new_diag1, new_diag2, count + 1))
+       
+       return result
 
-def bt2(idx):
-    global n, mat, l1, res2
-    if idx == len(l2):
-        res2 = max(res2, sum([1 for y, x in l2 if mat[y][x] == 2]))
-    else:
-        y, x = l2[idx]
-        if chck(y, x):
-            mat[y][x] = 2
-            bt2(idx+1)
-            mat[y][x] = 1
-            bt2(idx+1)
-        else:bt2(idx+1)    
+   return backtrack(0, 0, 0, 0)
 
-n = int(input())
-mat = [list(map(int, input().split())) for _ in range(n)]# 0: 위치불가, 1: 위치 가능, 2: 이미 배치
+N = int(input())
+mat = [list(map(int, input().split())) for _ in range(N)]
 
-l1 = [];l2 = []
-for i in range(n):
-    for j in range(n):
-        if mat[i][j] == 0: continue
-        if (i + j) % 2 == 0:l1.append((i, j))
-        else:l2.append((i, j))
-res1 = 0
-res2 = 0
-bt1(0)
-bt2(0)
-print(res1 + res2)
+# 흰 칸과 검은 칸 분리
+white_pos, black_pos = get_positions(N, mat)
+
+# 각각의 칸에 대해 최대 비숍 수 계산 
+white_result = solve(white_pos)
+black_result = solve(black_pos)
+
+print(white_result + black_result)
