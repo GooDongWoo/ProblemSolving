@@ -24,13 +24,9 @@ int bs_l(double target) {
 }
 
 int main() {
-	cin >> N >> M >> R;
-	for (int i = 0;i < N;i++) {
-		cin >> A[i];
-	}
-	for (int i = 0;i < M;i++) {
-		cin >> B[i];
-	}
+	scanf("%d%d%d", &N, &M, &R);
+	for (int i = 0;i < N;++i)scanf("%d", A + i);sort(A, A + N);
+	for (int i = 0;i < M;++i)scanf("%d", B + i);sort(B, B + M);
 
 	sort(A, A+N);sort(B, B + M);
 
@@ -49,7 +45,7 @@ int main() {
 	int idx = 0;
 	for (int i = 0; i < candidates.size();i++) {
 		idx = bs_l((2. * R) / candidates[i]);
-		if (idx < 0) continue;
+		if (idx < 0) break;
 		tmp = B[idx] * candidates[i] / (2.);
 		ans = max(ans, tmp);
 	}
