@@ -49,7 +49,7 @@ int main() {
 	int idx = 0;
 	for (int i = 0; i < candidates.size();i++) {
 		idx = bs_l((2. * R) / candidates[i]);
-		if (idx < 0 || idx >= M) continue;
+		if (idx < 0) continue;
 		tmp = B[idx] * candidates[i] / (2.);
 		ans = max(ans, tmp);
 	}
