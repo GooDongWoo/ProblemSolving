@@ -1,53 +1,60 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define fastio ios_base::sync_with_stdio(false); cin.tie(0)
+#define rep(i, a, b) for (int i=a;i<b;++i)
+#define fi first
+#define se second
+#define LL long long
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <string>
+#include <vector>
+#include <tuple>
+#include <queue>
+#include <stack>
+#include <numeric>
+#include <cmath>
+#include <cstring>
+
 using namespace std;
 
+
+int m, n, dp[50001], ans;
+
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    
-    int m;
+    fastio;
     cin >> m;
-    
-    vector<pair<int,int>> lines;
-    while (true) {
-        int left, right;
+    int left, right;
+    while (1) {
         cin >> left >> right;
         if (left == 0 && right == 0) break;
-        
         if (left == right) continue;
-        if (left < 0 && right <= 0) continue;
-        
-        lines.push_back({left, right});
-    }
-    
-    sort(lines.begin(), lines.end());
-    
-    int curr_end = 0;  
-    int count = 0;    
-    int i = 0;         
-    int max_reach = 0; 
-    
-    while (curr_end < m && i < lines.size()) {
-        bool found = false;
-        while (i < lines.size() && lines[i].first <= curr_end) {
-            max_reach = max(max_reach, lines[i].second);
-            found = true;
-            i++;
+        if (right > 0) {
+            dp[max(left, 0)] = max(dp[max(left, 0)], min(right, 50000));
         }
-        
-        if (!found || max_reach <= curr_end) {
-            cout << "0\n";
+    }
+    if (dp[0] == 0) {
+        printf("0\n");
+        return 0;
+    }
+    int curr = dp[0], curl = 1, nr = 0;
+    ans = 1;
+    while (curr < m) {
+        rep(i, curl, curr+1) {
+            if (dp[i] == 0) continue;
+            if (dp[i] > nr) {
+                nr = dp[i];
+            }
+        }
+        if (nr > curr) {
+            ans++;
+            curl = curr+1;
+            curr = nr;
+        }
+        else {
+            printf("0\n");
             return 0;
         }
-        
-        curr_end = max_reach;
-        count++;
     }
-    
-    if (curr_end >= m) cout << count << "\n";
-    else cout << "0\n";
-    
+    printf("%d\n", ans);    
     return 0;
 }
