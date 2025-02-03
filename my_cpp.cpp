@@ -11,6 +11,9 @@
 #include <tuple>
 #include <queue>
 #include <stack>
+#include <deque>
+#include <map>
+#include <set>
 #include <numeric>
 #include <cmath>
 #include <cstring>
@@ -18,7 +21,6 @@
 using namespace std;
 
 int main() {
-    fastio;
-	
+	fastio;
 	return 0;
 }
