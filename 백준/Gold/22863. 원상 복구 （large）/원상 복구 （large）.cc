@@ -20,29 +20,31 @@
 using namespace std;
 #define MAX 1000001
 
-LL N, K, S[MAX], D[MAX], dp[51][MAX], ans[MAX], result[MAX];
+LL N, K, S[MAX], D[MAX], rev_D[MAX], dp[60][MAX], ans[MAX], result[MAX];
 
 int main() {
     fastio;
     cin >> N >> K;
     rep(i, 1, N + 1) cin >> S[i];
-    rep(i, 1, N + 1) cin >> D[i];
-
-    rep(i, 1, N + 1) dp[0][i] = D[i];
-    rep(i, 1, 51) rep(j, 1, N + 1) dp[i][j] = dp[i - 1][dp[i - 1][j]];
-
-    // ans[i]는 K번 셔플 후 i번째에 있는 카드가 원래 어느 위치에 있었는지를 나타냄
     rep(i, 1, N + 1) {
-        LL cur = i;
+        cin >> D[i];
+        rev_D[D[i]] = i;  // 역방향 매핑 추가
+    }
+
+    // dp[i][j]: 2^i번 역방향으로 이동했을 때의 위치
+    rep(i, 1, N + 1) dp[0][i] = rev_D[i];
+    rep(i, 1, 60) rep(j, 1, N + 1) dp[i][j] = dp[i - 1][dp[i - 1][j]];
+
+    rep(i, 1, N + 1) ans[i] = i;
+    rep(i, 1, N + 1) {
         LL tmpK = K, idx = 0;
         while (tmpK) {
             if (tmpK & 1) {
-                cur = dp[idx][cur];
+                ans[i] = dp[idx][ans[i]];
             }
             idx++;
             tmpK >>= 1;
         }
-        ans[cur] = i;
     }
 
     rep(i, 1, N + 1) result[i] = S[ans[i]];
