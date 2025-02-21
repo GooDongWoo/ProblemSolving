@@ -20,36 +20,46 @@
 
 using namespace std;
 
-LL N, M, boxes[100001], cups[320], ans;;
+int N, M, boxes[100001], cups[320], ans;;
+
 
 int main() {
 	fastio;
 	cin >> N >> M;
-	LL K = (LL)sqrt(N);
-	LL start, num, lcnt, rcnt, end, bef_end;
+	int K = (int)pow(N, 0.5);
+	int start, num;
+	int left, right;
 	rep(i, 0, M) {
 		ans = 0;
-		cin >> num >> start;
-		bef_end = start - 1;
-		end = bef_end + num;
+		cin >> num >> start;start--;
 		if (num >= K) {
-			lcnt = (K - (bef_end % K)) % K;
-			rep(j, 0, lcnt) ans += ++boxes[start + j];
-			if (end == N) {
-				rcnt = N % K;
-				if (rcnt) ans += (++cups[K+1]);
+			left = (K - (start % K)) % K;
+			rep(j, 0, left) {
+				ans += ++boxes[start+1+j];
+			}
+			if (start + num == N) {
+				right = (start + num) % K;
+				if (right) {
+					ans += (++cups[K+1]);
+				}
 			}
 			else {
-				rcnt = (end) % K;
-				rep(j, 0, rcnt) ans += ++boxes[end - j];
+				right = (start + num) % K;
+				rep(j, 0, right) {
+					ans += ++boxes[start + num - j];
+				}
 			}
-			num -= (lcnt + rcnt);
-			rep(j, 0, num / K) ans += (++cups[(start + lcnt) / K + j]);
+			num -= (left + right);
+			rep(j, 0, num / K) {
+				ans += (++cups[(start + left) / K + j]);
+			}
 		}
 		else {
-			rep(j, 0, num) ans += ++boxes[start + j];
+			rep(j, 0, num) {
+				ans += ++boxes[start+1+j];
+			}
 		}
-		printf("%lld\n", ans);
+		printf("%d\n", ans);
 	}
 	return 0;
 }
