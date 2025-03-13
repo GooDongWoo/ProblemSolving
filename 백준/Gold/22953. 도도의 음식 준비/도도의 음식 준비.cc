@@ -51,10 +51,10 @@ int main() {
     arr.resize(N);  
     rep(i, 0, N) cin >> arr[i];
     BT(0);
-    ans = 1e13;
+    ans = 1e12;
     for (const auto& case1 : s1) {
         LL start = 1;
-        LL end = 1e13;
+        LL end = 1e12;
 
         while (start <= end) {
             LL mid = start + (end - start) / 2;
