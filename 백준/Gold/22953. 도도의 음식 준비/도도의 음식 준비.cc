@@ -53,7 +53,7 @@ int main() {
     BT(0);
     ans = 1e12;
     for (const auto& case1 : s1) {
-        LL start = 1;
+        LL start = 0;
         LL end = 1e12;
 
         while (start <= end) {
