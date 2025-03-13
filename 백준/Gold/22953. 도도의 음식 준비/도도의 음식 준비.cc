@@ -59,15 +59,14 @@ int main() {
         while (start <= end) {
             LL mid = start + (end - start) / 2;
             if (F(mid, case1)) {
-                ans = min(ans, mid);
                 end = mid - 1;
             }
             else {
                 start = mid + 1;
             }
         }
+        ans = min(ans, start);
     }
-
     printf("%lld\n", ans);
     return 0;
 }
