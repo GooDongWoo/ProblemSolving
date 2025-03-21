@@ -15,79 +15,75 @@
 #include <set>
 #include <cmath>
 #include <cstring>
-
 using namespace std;
 
 struct Item {
-	int s, e, num;
-	bool operator<(const Item& o)const {
-		return s < o.s;
-	}
+    int s, e, num;
+    bool operator<(const Item& o) const {
+        return s < o.s;
+    }
 };
-int N, a, b, c, dp[200000];
-Item arr[100000];
-set<int> s1;
-vector<int> narr;
 
-int lbs(int num) {
-	int start, end, mid;
-	start = 0;
-	end = N - 1;
-	while (start <= end) {
-		mid = (start + end) / 2;
-		if (arr[mid].s < num) start = mid + 1;
-		else end = mid - 1;
-	}
-	return start;
-}
-int ubs(int num) {
-	int start, end, mid;
-	start = 0;
-	end = N - 1;
-	while (start <= end) {
-		mid = (start + end) / 2;
-		if (arr[mid].s <= num) start = mid + 1;
-		else end = mid - 1;
-	}
-	return start;
-}
-int bs2(int num) {
-	int start, end, mid;
-	start = 0;
-	end = narr.size() - 1;
-	while (start <= end) {
-		mid = (start + end) / 2;
-		if (narr[mid] < num) start = mid + 1;
-		else end = mid - 1;
-	}
-	return start;
-}
 int main() {
-	fastio;
-	cin >> N;
-	rep(i, 0, N) {
-		cin >> a >> b >> c;
-		arr[i] = { a,b,c };
-		s1.insert(a); s1.insert(b);
-	}
-	sort(arr, arr + N);
-	narr.reserve(2 * N);
-	for (const auto& x : s1) narr.push_back(x);
-	rep(i, 0, narr.size()) {
-		//앞의 최댓값 끌고가기
-		if (i > 0) dp[i] = max(dp[i - 1], dp[i]);
-		// arr.s 중에서 narr[i]를 찾는다.
-		int lidx = lbs(narr[i]);
-		int ridx = ubs(narr[i]);
-		// 없으면 패스
-		rep(idx, lidx, ridx) {
-			if (idx >= N) continue;
-			if (arr[idx].s != narr[i])continue;
-			// 있으면 거기서 dp조짐
-			int idx1 = bs2(arr[idx].s);
-			int idx2 = bs2(arr[idx].e);
-			dp[idx2] = max(dp[idx2], dp[idx1] + arr[idx].num);
-		}
-	}
-	printf("%d", dp[narr.size() - 1]);
+    fastio;
+    int N;
+    cin >> N;
+    
+    vector<Item> items(N);
+    unordered_map<int, int> compress; // Hash map for coordinate compression
+    vector<int> coordinates;          // Stores unique coordinates
+    coordinates.reserve(2 * N);       // Pre-allocate memory
+    
+    // Read input and collect unique coordinates
+    rep(i, 0, N) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        items[i] = {a, b, c};
+        
+        // Add coordinates to the set if not already present
+        if (compress.find(a) == compress.end()) {
+            compress[a] = 0; // Temporary value
+            coordinates.push_back(a);
+        }
+        if (compress.find(b) == compress.end()) {
+            compress[b] = 0; // Temporary value
+            coordinates.push_back(b);
+        }
+    }
+    
+    // Sort coordinates and perform coordinate compression
+    sort(coordinates.begin(), coordinates.end());
+    rep(i, 0, coordinates.size()) {
+        compress[coordinates[i]] = i;
+    }
+    
+    // Map items to compressed coordinates
+    rep(i, 0, N) {
+        items[i].s = compress[items[i].s];
+        items[i].e = compress[items[i].e];
+    }
+    
+    // Sort items by start time
+    sort(items.begin(), items.end());
+    
+    // DP array with size equal to number of unique coordinates
+    vector<int> dp(coordinates.size(), 0);
+    
+    // Process items in order
+    int itemIdx = 0;
+    rep(i, 0, coordinates.size()) {
+        // Carry forward maximum value from previous coordinate
+        if (i > 0) {
+            dp[i] = max(dp[i], dp[i-1]);
+        }
+        
+        // Process all items that start at current coordinate
+        while (itemIdx < N && items[itemIdx].s == i) {
+            dp[items[itemIdx].e] = max(dp[items[itemIdx].e], dp[i] + items[itemIdx].num);
+            itemIdx++;
+        }
+    }
+    
+    cout << dp[coordinates.size() - 1] << endl;
+    return 0;
 }
