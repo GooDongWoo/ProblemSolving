@@ -1,21 +1,11 @@
-#define _CRT_SECURE_NO_WARNINGS
 #define fastio ios_base::sync_with_stdio(false); cin.tie(0)
 #define rep(i, a, b) for (int i=a;i<b;++i)
-#define fi first
-#define se second
-#define LL long long
 #include <iostream>
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <tuple>
 #include <unordered_map>
-#include <unordered_set>
 #include <queue>
-#include <stack>
-#include <numeric>
-#include <cmath>
-#include <cstring>
 
 using namespace std;
 
@@ -32,7 +22,7 @@ int main() {
 	vector<queue<int>> arr(N);
 	rep(i, 0, word.size()) {
 		char curc = word[i];
-		if (dict.find(curc) != dict.end()) //찾으면
+		if (dict.find(curc) != dict.end()) 
 			arr[dict[curc]].push(i);
 	}
 	bool Flag = true;
@@ -40,10 +30,6 @@ int main() {
 		if (!arr[0].size()) break;
 		int curv = arr[0].front(); arr[0].pop();
 		rep(i, 1, N) {
-			if (!arr[i].size()) {
-				Flag = false;
-				break;
-			}
 			while (arr[i].size() && arr[i].front() <= curv) {
 				arr[i].pop();
 			}
