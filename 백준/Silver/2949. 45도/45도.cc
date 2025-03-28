@@ -47,7 +47,6 @@ vector<vector<char>> rotate45(const vector<vector<char>>& mat) {
 			}
 			r--;
 		}
-		tmp.pop_back();
 		res.push_back(tmp);
 	}
 	return res;
