@@ -1,42 +1,42 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cstring>
+#define rep(i, a, b) for(int i = a; i < b; ++i)
+#define LL long long
 using namespace std;
-
-const int DAY = 1440; 
-
+const int DAY = 1440;
+int N, K, arr[3][2];
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int N, K;
     cin >> N >> K;
-
-    int mealWindows[3][2]; // [meal][start/end]
-    for (int i = 0; i < 3; i++) {
-        cin >> mealWindows[i][0] >> mealWindows[i][1];
-    }
-
-    int medicationTime = mealWindows[0][1];
-    bool possible = true;
-
-    for (int day = 0; day < N; day++) {
-        int startMeal = (day == 0) ? 1 : 0;
-
-        for (int meal = startMeal; meal < 3; meal++) {
-            int mealStart = mealWindows[meal][0] + day * DAY;
-            int mealEnd = mealWindows[meal][1] + day * DAY;
-
-            if (medicationTime + K < mealStart) {
-                possible = false;
+    rep(i, 0, 3)
+        rep(j, 0, 2)
+        cin >> arr[i][j];
+    bool Flag = true;
+    int start = arr[0][1];
+    rep(day, 1, N + 1) {
+        rep(time, 0, 3) {
+            if (arr[time][0] <= start) {
+                if (start > arr[time][1]) {
+                    start = arr[time][1];
+                }
+                start += K;
+            }
+            else {
+                Flag = 0;
                 break;
             }
-
-            medicationTime = min(mealEnd, max(mealStart, medicationTime + K));
         }
-
-        if (!possible) break;
+        start -= DAY;
+        if (!Flag) {
+            break;
+        }
     }
-
-    cout << (possible ? "YES" : "NO") << endl;
-
+    if (Flag)
+        printf("YES\n");
+    else
+        printf("NO\n");
     return 0;
 }
