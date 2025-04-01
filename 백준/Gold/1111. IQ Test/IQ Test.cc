@@ -22,7 +22,7 @@ int main() {
 		printf("A\n");
 		return 0;
 	}
-	rep(i, -625, 625)
+	rep(i, -200, 200)
 		s1[0].insert({ i,arr[1] - (arr[0] * i) });
 
 	rep(i, 2, N) {
