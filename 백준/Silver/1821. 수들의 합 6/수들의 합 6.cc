@@ -43,6 +43,8 @@ void bt(int idx) {
 			arr[0][idx] = i;
 			bt(idx + 1);
 			chck[i] = 0;
+			if (Flag == 0)
+				return;
 		}
 	}
 }
