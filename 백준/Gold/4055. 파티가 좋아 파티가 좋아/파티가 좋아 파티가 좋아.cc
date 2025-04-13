@@ -6,17 +6,9 @@
 #define LL long long
 #include <iostream>
 #include <algorithm>
-#include <string>
 #include <vector>
-#include <tuple>
 #include <queue>
-#include <stack>
-#include <deque>
-#include <map>
-#include <set>
-#include <numeric>
-#include <cmath>
-#include <cstring>
+
 
 using namespace std;
 
