@@ -21,7 +21,10 @@ int main() {
 		cin >> tt;
 	printf("YES\n");
 	if (tt)
-		printf("%d%d", tt, tt);
+		if (tt == 1)
+			printf("%d", tt);
+		else
+			printf("%d%d", tt, tt);
 	else
 		printf("%d", tt);
 }
