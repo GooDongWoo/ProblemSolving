@@ -5,18 +5,18 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <deque>
+#include <queue>
 
 using namespace std;
 
 int N, M, ans;
-deque<int> dq;
+queue<int> dq;
 
 int main() {
 	fastio;
 	cin >> N >> M;
 	rep(i, 1, N + 1)
-		dq.push_back(i);
+		dq.push(i);
 	rep(i, 0, M) {
 		int a;
 		cin >> a;
@@ -24,11 +24,11 @@ int main() {
 		int cnter = 0;
 		while (dq.front() != a) {
 			int f = dq.front();
-			dq.pop_front();
-			dq.push_back(f);
+			dq.pop();
+			dq.push(f);
 			cnter++;
 		}
-		dq.pop_front();
+		dq.pop();
 		ans += min(cnter, dqSize - cnter);
 	}
 	printf("%d\n", ans);
