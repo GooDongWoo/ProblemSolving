@@ -6,19 +6,18 @@
 #include <vector>
 #include <algorithm>
 #include <tuple>
-
 using namespace std;
-
 int A, B, N;
 pair<int, int> p1[500001];
 pair<int, int> p2[500001];
 
-int lower_bound(int target) {
-	int start, end, mid;
-	start = 0;
-	end = N;
+// 최적화된 이분 탐색 - 원래 로직 유지
+inline int lower_bound(int target) {
+	int start = 0;
+	int end = N;
+	int mid;
 	while (start <= end) {
-		mid = (start + end) / 2;
+		mid = (start + end) >> 1;  // 비트 연산으로 나누기 최적화
 		if (p2[mid].first < target)
 			start = mid + 1;
 		else
@@ -26,6 +25,7 @@ int lower_bound(int target) {
 	}
 	return start;
 }
+
 int main() {
 	fastio;
 	cin >> A >> B >> N;
@@ -42,14 +42,16 @@ int main() {
 		printf("-1 -1\n");
 		return 0;
 	}
+	
+	// 메모리 할당 최적화
 	vector<vector<int>> clist;
+	clist.reserve(N+1);
+	
 	rep(i, 0, N + 1) {
 		int Li = p1[i].first;
 		int Lidx = p1[i].second;
 		int Rtarget = target - Li;
 		int idx = lower_bound(Rtarget);
-		//idx == N + 1;
-		//p2[idx].second == Lidx
 		if (idx == N + 1)
 			continue;
 		if (p2[idx].second == Lidx) {
@@ -63,7 +65,7 @@ int main() {
 	}
 	sort(clist.begin(), clist.end());
 	if (clist.size())
-		printf("%d %d\n",clist[0][1], clist[0][2]);
+		printf("%d %d\n", clist[0][1], clist[0][2]);
 	else
 		printf("No\n");
 	return 0;
