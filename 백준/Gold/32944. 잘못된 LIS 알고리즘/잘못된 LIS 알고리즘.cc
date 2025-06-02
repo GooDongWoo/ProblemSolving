@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <sstream>
 using namespace std;
 
 int N, M, K;
@@ -48,11 +49,13 @@ int main() {
 			dq.pop_back();
 		}
 		
-		// 더 빠른 출력 (단일 문자열로 구성 후 출력)
+		// stringstream으로 한번에 출력 구성 (가장 빠른 방법)
+		ostringstream oss;
 		for (size_t i = 0; i < arr.size(); ++i) {
-			printf("%d", arr[i]);
-			if (i < arr.size() - 1) printf(" ");
+			oss << arr[i];
+			if (i < arr.size() - 1) oss << ' ';
 		}
+		cout << oss.str();
 	}
 	
 	return 0;
