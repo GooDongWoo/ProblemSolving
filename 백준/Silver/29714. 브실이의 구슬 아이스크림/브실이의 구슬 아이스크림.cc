@@ -6,9 +6,6 @@
 #include <algorithm>
 #include <vector>
 #include <unordered_map>
-#include <unordered_set>
-#include <string>
-
 using namespace std;
 
 int N, Q;
@@ -17,32 +14,41 @@ unordered_map<int, LL> dict;
 int main() {
 	fastio;
 	cin >> N;
+	dict.reserve(N);
+	
 	rep(i, 0, N) {
 		int tmp;
 		cin >> tmp;
 		dict[tmp]++;
 	}
+	
 	cin >> Q;
 	rep(i, 0, Q) {
 		int a;
 		unordered_map<int, LL> mini;
 		cin >> a;
+		mini.reserve(a);
+		
 		rep(j, 0, a) {
 			int tmp;
 			cin >> tmp;
 			mini[tmp]++;
 		}
+		
 		bool Flag = 1;
 		for (const auto& x : mini) {
-			if (dict[x.first] - mini[x.first] < 0) {
+			if (dict[x.first] < x.second) {
 				Flag = 0;
+				break;
 			}
 		}
+		
 		if (Flag) {
 			for (const auto& x : mini) {
-				dict[x.first] -= mini[x.first];
+				dict[x.first] -= x.second;
 			}
 		}
+		
 		cin >> a;
 		rep(j, 0, a) {
 			int tmp;
@@ -52,18 +58,21 @@ int main() {
 			}
 		}
 	}
+	
 	vector<int> anslist;
+	anslist.reserve(N);
+	
 	for (const auto& x : dict) {
-		if (x.second != 0) {
-			rep(i,0,x.second){
-				anslist.push_back(x.first);
-			}
+		rep(i, 0, x.second) {
+			anslist.push_back(x.first);
 		}
 	}
+	
 	sort(anslist.begin(), anslist.end());
-	printf("%lld\n",anslist.size());
+	cout << anslist.size() << '\n';
 	rep(i, 0, anslist.size()) {
-		printf("%d ", anslist[i]);
+		cout << anslist[i] << ' ';
 	}
+	
 	return 0;
 }
