@@ -5,16 +5,17 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-
 using namespace std;
 
 int T, N;
 string num;
 
-void F1(string& num, string target) {
-	int idx = 0;
-	while ((idx = num.find('?', idx)) != -1)
-		num.replace(idx, 1, target);
+void F1(string& num, char target) {
+	rep(i, 0, num.size()) {
+		if (num[i] == '?') {
+			num[i] = target;
+		}
+	}
 }
 
 int chck(string& num) {
@@ -26,12 +27,11 @@ int chck(string& num) {
 	rep(i, fidx, num.size()) {
 		n1 += num[i];
 	}
-
 	if (n1.find('1', 1) == -1) {
-		return num.size() + n1.size() - 1;
+		return N + n1.size() - 1;
 	}
 	else {
-		return num.size() + n1.size();
+		return N + n1.size();
 	}
 }
 
@@ -41,12 +41,11 @@ int main() {
 	rep(test_case, 1, T + 1) {
 		cin >> N >> num;
 		string min1(num), max1(num);
-		F1(min1, "0");
-		F1(max1, "1");
-
+		F1(min1, '0');
+		F1(max1, '1');
 		int cnt1 = chck(min1);
 		int cnt2 = chck(max1);
-
 		printf("%d %d\n", cnt2, cnt1);
 	}
+	return 0;
 }
