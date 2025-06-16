@@ -28,10 +28,6 @@ int main() {
 
 			for (int i = K; i < N && remainder > 0; i++) {
 				int give = min(remainder, top_score - 1);
-				if (give <= 0) {
-					cout << "Wrong information\n";
-					return 0;
-				}
 				arr[i] = give;
 				remainder -= give;
 			}
