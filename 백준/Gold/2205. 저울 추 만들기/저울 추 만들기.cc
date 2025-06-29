@@ -19,7 +19,6 @@ int main() {
 	while (idx > 0) {
 		int logn = log2(idx);
 		int target = pow(2, logn + 1);
-		// (target - idx) ~ (idx)
 		rep(i, target - idx, idx + 1) {
 			ans[i] = target - i;
 		}
