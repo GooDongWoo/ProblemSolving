@@ -32,12 +32,7 @@ void bt(int idx) {
 					ans *= arr[idx];
 				}
 				else {
-					if (ans > 0) {
-						ans /= arr[idx];
-					}
-					else {
-						ans = -(abs(ans) / arr[idx]);
-					}
+					ans /= arr[idx];
 				}
 				bt(idx + 1);
 				++optrs[i];
