@@ -1,13 +1,11 @@
 #include <iostream>
-#include <algorithm>
-#include <cmath>
 #define LL long long
 using namespace std;
 
 int N;
 
 int main() {
-	cin >> N;
+    scanf("%d",&N);
 	LL res = N;
 	LL p2 = 2;
 	while (p2 <= N) {
