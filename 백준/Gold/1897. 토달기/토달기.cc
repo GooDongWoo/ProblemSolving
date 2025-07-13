@@ -4,8 +4,6 @@
 #include <vector>
 #include <queue>
 #include <unordered_set>
-
-
 #define LL long long
 #define rep(i,a,b) for(int i=a;i<b;++i)
 using namespace std;
@@ -14,52 +12,69 @@ int D;
 string st, tmp, ans;
 vector<string> dict[82];
 queue<string> q;
-unordered_set<string> v;
+unordered_set<string> visited;
 
-bool chck(string& gt, string cd) {
-	int s1 = 0, s2 = 0;
-	bool cnt = false;
-	while (s1 < gt.size()) {
-		if (gt[s1] != cd[s2]) {
-			if (!cnt) {
-				cnt = true;
-				s2++;
-			}
-			else {
-				return false;
-			}
-		}
-		else {
-			s1++;
-			s2++;
-		}
-	}
-	return true;
+bool canInsertOne(const string& cur, const string& target) {
+    if (target.size() != cur.size() + 1) return false;
+
+    int curIdx = 0, targetIdx = 0;
+    bool inserted = false;
+
+    while (curIdx < cur.size() && targetIdx < target.size()) {
+        if (cur[curIdx] == target[targetIdx]) {
+            curIdx++;
+            targetIdx++;
+        }
+        else {
+            if (inserted) return false; 
+            inserted = true;
+            targetIdx++;
+        }
+    }
+
+    return true;
 }
 
 int main() {
-	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-	cin >> D;
-	cin >> st;
-	ans = st;
-	rep(i, 0, D) {
-		cin >> tmp;
-		dict[tmp.size()].push_back(tmp);
-	}
-	v.insert(st);
-	q.push(st);
-	while (q.size()) {
-		string cur = q.front(); q.pop();
-		for (const auto& cds : dict[cur.size() + 1]) {
-			if (chck(cur, cds)) {
-				if (ans.size() < cds.size()) {
-					ans = cds;
-				}
-				v.insert(cds);
-				q.push(cds);
-			}
-		}
-	}
-	cout << ans;
-	return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> D >> st;
+    ans = st;
+
+    rep(i, 0, D) {
+        cin >> tmp;
+        dict[tmp.size()].push_back(tmp);
+    }
+
+    rep(i, 0, 82) {
+        sort(dict[i].begin(), dict[i].end());
+    }
+
+    visited.insert(st);
+    q.push(st);
+
+    while (!q.empty()) {
+        string cur = q.front();
+        q.pop();
+
+        int nextLen = cur.size() + 1;
+
+        for (const string& candidate : dict[nextLen]) {
+            if (visited.count(candidate)) continue;
+
+            if (canInsertOne(cur, candidate)) {
+                if (candidate.size() > ans.size()) {
+                    ans = candidate;
+                }
+
+                visited.insert(candidate);
+                q.push(candidate);
+            }
+        }
+    }
+
+    cout << ans << endl;
+    return 0;
 }
