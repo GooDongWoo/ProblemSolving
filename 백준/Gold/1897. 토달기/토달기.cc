@@ -12,65 +12,64 @@ int D;
 string st, tmp, ans;
 vector<string> dict[82];
 queue<string> q;
-unordered_set<string> visited;
+unordered_set<string> v;
 
 bool canInsertOne(const string& cur, const string& target) {
-    if (target.size() != cur.size() + 1) return false;
+	int cidx = 0, tidx = 0;
+	bool inserted = false;
 
-    int curIdx = 0, targetIdx = 0;
-    bool inserted = false;
-
-    while (curIdx < cur.size() && targetIdx < target.size()) {
-        if (cur[curIdx] == target[targetIdx]) {
-            curIdx++;
-            targetIdx++;
-        }
-        else {
-            if (inserted) return false; 
-            inserted = true;
-            targetIdx++;
-        }
-    }
-
-    return true;
+	while (cidx < cur.size() && tidx < target.size()) {
+		if (cur[cidx] == target[tidx]) {
+			cidx++;
+			tidx++;
+		}
+		else {
+			if (inserted) {
+				return false;
+			}
+			inserted = true;
+			tidx++;
+		}
+	}
+	return true;
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    cin >> D >> st;
-    ans = st;
+	cin >> D >> st;
+	ans = st;
 
-    rep(i, 0, D) {
-        cin >> tmp;
-        dict[tmp.size()].push_back(tmp);
-    }
+	rep(i, 0, D) {
+		cin >> tmp;
+		dict[tmp.size()].push_back(tmp);
+	}
 
-    visited.insert(st);
-    q.push(st);
+	v.insert(st);
+	q.push(st);
 
-    while (!q.empty()) {
-        string cur = q.front();
-        q.pop();
+	while (q.size()) {
+		string cur = q.front();
+		q.pop();
 
-        int nextLen = cur.size() + 1;
+		int nextLen = cur.size() + 1;
 
-        for (const string& candidate : dict[nextLen]) {
-            if (visited.count(candidate)) continue;
+		for (const string& cds : dict[nextLen]) {
+			if (v.count(cds)) continue;
 
-            if (canInsertOne(cur, candidate)) {
-                if (candidate.size() > ans.size()) {
-                    ans = candidate;
-                }
+			if (canInsertOne(cur, cds)) {
+				if (cds.size() > ans.size()) {
+					ans = cds;
+				}
 
-                visited.insert(candidate);
-                q.push(candidate);
-            }
-        }
-    }
+				v.insert(cds);
+				q.push(cds);
+			}
+		}
+	}
 
-    cout << ans << endl;
-    return 0;
+	cout << ans << endl;
+	return 0;
 }
