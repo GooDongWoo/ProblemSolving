@@ -48,10 +48,6 @@ int main() {
         dict[tmp.size()].push_back(tmp);
     }
 
-    rep(i, 0, 82) {
-        sort(dict[i].begin(), dict[i].end());
-    }
-
     visited.insert(st);
     q.push(st);
 
