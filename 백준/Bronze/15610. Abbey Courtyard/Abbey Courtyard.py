@@ -1,2 +1,2 @@
 a = int(input())
-print(pow(a,.5)*4)
+print((a**.5)*4)
