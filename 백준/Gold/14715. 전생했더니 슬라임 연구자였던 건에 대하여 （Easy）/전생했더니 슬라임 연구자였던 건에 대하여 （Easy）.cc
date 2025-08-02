@@ -12,12 +12,18 @@ int main() {
 	cin.tie(0)->sync_with_stdio(0);
 	cin >> K;
 	while (K != 1) {
-		rep(i, 2, K + 1) {
+		bool chck = 1;
+		rep(i, 2, sqrt(K) + 1) {
 			if (K % i == 0) {
 				K /= i;
 				cnter++;
+				chck = 0;
 				break;
 			}
+		}
+		if (chck) {
+			K = 1;
+			cnter++;
 		}
 	}
 	int bef = 1, exp = 0;
