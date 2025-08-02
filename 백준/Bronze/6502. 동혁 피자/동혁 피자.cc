@@ -12,7 +12,7 @@ int main() {
 	int cnt = 1;
 	while (cin >> r && r != 0) {
 		cin >> w >> l;
-		if (sqrt(w*w + l*l) <= 2*r) {
+		if ((w*w + l*l) <= (r*r)*(4)) {
 			cout << "Pizza " << cnt << " fits on the table.\n";
 		} else {
 			cout << "Pizza " << cnt << " does not fit on the table.\n";
