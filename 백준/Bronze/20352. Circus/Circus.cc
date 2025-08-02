@@ -12,7 +12,7 @@ int main() {
 	LL a;
 	cin >> a;
 	
-	double perimeter = 2 * sqrt(a/M_PI)*M_PI;
+	double perimeter = 2 * sqrt(a*M_PI);
 	
 	cout << fixed<<setprecision(6)<<perimeter;
 	
