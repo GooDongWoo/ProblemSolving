@@ -18,7 +18,7 @@ int main() {
 	a = a * a;
 	b = b * b;
 	double start = 0, end = min(a, b);
-	while (end-start > 1e-5) {
+	while (end-start > 1e-3) {
 		double mid = mid = (start + end) / 2;
 		if (c < calc(mid)) {
 			start = mid;
