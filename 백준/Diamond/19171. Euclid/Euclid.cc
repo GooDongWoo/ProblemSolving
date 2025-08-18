@@ -42,7 +42,7 @@ int main() {
     double alpha = 2e9;
     double decay_rate = 0.999;
     
-    for (int i = 0; i < 125000; ++i) {
+    for (int i = 0; i < 67500; ++i) {
         Point gradient = {0.0, 0.0, 0.0};
 
         for (const auto& source : sources) {
