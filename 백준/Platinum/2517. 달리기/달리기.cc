@@ -1,46 +1,54 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
-#include <unordered_map>
 
-#define rep(i,a,b) for(int i=(a);i<(b);++i)
-#define LL long long
+#define rep(i, a, b) for(int i = (a); i < (b); ++i)
 using namespace std;
 
-int N, arr[500001], o1[500001], o2[500001];
-unordered_map<int, int> dict;
+int N;
+int bit[500001];
+int initial_skills[500001];
+vector<int> coords;
 
 void update(int idx, int val) {
-	while (idx <= N) {
-		arr[idx] += val;
-		idx += idx & (~idx + 1);
-	}
+    while (idx <= N) {
+        bit[idx] += val;
+        idx += idx & -idx;
+    }
 }
 
 int query(int idx) {
-	int cur = 0;
-	while (idx > 0) {
-		cur += arr[idx];
-		idx -= idx & (~idx + 1);
-	}
-	return cur;
+    int cur = 0;
+    while (idx > 0) {
+        cur += bit[idx];
+        idx -= idx & -idx;
+    }
+    return cur;
 }
 
+int get_coord(int val) {
+    return lower_bound(coords.begin(), coords.end(), val) - coords.begin() + 1;
+}
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	cin >> N;
-	dict.reserve(N);
-	rep(i, 1, N + 1) {
-		cin >> o1[i];
-		o2[i] = o1[i];
-	}
-	sort(o2 + 1, o2 + N + 1);
-	rep(i, 1, N + 1) {
-		dict[o2[i]] = i;
-	}
-	rep(i, 1, N + 1) {
-		cout << (i - query(dict[o1[i]])) << '\n';
-		update(dict[o1[i]], 1);
-	}
-	return 0;
+    cin.tie(0)->sync_with_stdio(0);
+
+    cin >> N;
+    coords.reserve(N);
+    rep(i, 1, N + 1) {
+        cin >> initial_skills[i];
+        coords.push_back(initial_skills[i]);
+    }
+
+    sort(coords.begin(), coords.end());
+    coords.erase(unique(coords.begin(), coords.end()), coords.end());
+
+    rep(i, 1, N + 1) {
+        int compressed_idx = get_coord(initial_skills[i]);
+        int count_le = query(compressed_idx);
+        cout << (i - count_le) << '\n';
+        update(compressed_idx, 1);
+    }
+
+    return 0;
 }
