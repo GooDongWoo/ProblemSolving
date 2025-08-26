@@ -41,7 +41,6 @@ int main() {
     }
 
     sort(coords.begin(), coords.end());
-    coords.erase(unique(coords.begin(), coords.end()), coords.end());
 
     rep(i, 1, N + 1) {
         int compressed_idx = get_coord(initial_skills[i]);
