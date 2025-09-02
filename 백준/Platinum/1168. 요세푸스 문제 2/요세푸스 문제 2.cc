@@ -8,10 +8,6 @@ using namespace std;
 
 int N, K, bit[100001];
 
-void build(int idx) {
-
-}
-
 void update(int idx, int val) {
 	while (idx <= N) {
 		bit[idx] += val;
@@ -49,7 +45,7 @@ int main() {
 		}
 		ans += to_string(start) + ", ";
 		update(start, -1);
-		bef = (target - 1);
+		bef = target - 1;
 	}
 	ans.pop_back();
 	ans.pop_back();
