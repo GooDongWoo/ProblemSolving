@@ -28,7 +28,7 @@ int query(int idx, int l, int r, int ql, int qr, int val) {
 		return 0;
 	}
 	if (ql <= l && r <= qr) {
-		int num = lower_bound(mergeSortTree[idx].begin(), mergeSortTree[idx].end(), val) - mergeSortTree[idx].begin();
+		int num = upper_bound(mergeSortTree[idx].begin(), mergeSortTree[idx].end(), val) - mergeSortTree[idx].begin();
 		return num;
 	}
 	int mid = (l + r) / 2;
@@ -57,7 +57,7 @@ int main() {
 				end = mid - 1;
 			}
 		}
-		cout << start - 1 << '\n';
+		cout << start << '\n';
 	}
 
 	return 0;
