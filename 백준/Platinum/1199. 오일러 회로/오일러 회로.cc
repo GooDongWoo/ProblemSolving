@@ -1,53 +1,63 @@
-#include <iostream>
-#include <algorithm>
+#include <cstdio>
 #include <vector>
-#include <set>
-#include <queue>
-#include <cstring>
+#include <stack>
+#include <algorithm>
 
-#define rep(i,a,b) for(int i=(a);i<(b);++i)
-using LL = long long;
-
-using namespace std;
-
-int N, adjm[1000][1000], iocnter[1000];
-bool Flag = 1;
-vector<queue<int>> adjv;
-
-void dfs(int cur) {
-	while(adjv[cur].size()){
-		int nxt = adjv[cur].front(); adjv[cur].pop();
-		if (nxt == cur || adjm[cur][nxt] == 0) {
-			continue;
-		}
-		adjm[cur][nxt]--;
-		adjm[nxt][cur]--;
-		dfs(nxt);
-	}
-	cout << cur + 1 << ' ';
-	return;
-}
+int N;
+int adj[1001][1001];
+int search_from[1001] = {};
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	cin >> N;
-	adjv.resize(N);
-	rep(i, 0, N) {
-		rep(j, 0, N) {
-			cin >> adjm[i][j];
-			iocnter[i] += adjm[i][j];
-			rep(k, 0, adjm[i][j]) {
-				adjv[i].push(j);
-			}
-		}
-		if (iocnter[i] & 1) {
-			Flag = 0;
-		}
-	}
-	if (!Flag) {
-		cout << -1;
-		return 0;
-	}
-	dfs(0);
-	return 0;
+    scanf("%d", &N);
+
+    for (int i = 0; i < N; ++i) {
+        int degree = 0;
+        for (int j = 0; j < N; ++j) {
+            scanf("%d", &adj[i][j]);
+            degree += adj[i][j];
+        }
+        if (degree % 2 != 0) {
+            printf("-1\n");
+            return 0;
+        }
+    }
+
+    std::vector<int> path;
+    std::stack<int> st;
+
+    st.push(0);
+
+    while (!st.empty()) {
+        int u = st.top();
+        bool found_edge = false;
+
+        for (int& v = search_from[u]; v <= N; ++v) {
+            if (v == N) {
+                break;
+            }
+            if (adj[u][v] > 0) {
+                found_edge = true;
+                
+                adj[u][v]--;
+                adj[v][u]--;
+                
+                st.push(v);
+                break;
+            }
+        }
+
+        if (!found_edge) {
+            st.pop();
+            path.push_back(u);
+        }
+    }
+
+    std::reverse(path.begin(), path.end());
+
+    for (int node : path) {
+        printf("%d ", node + 1);
+    }
+    printf("\n");
+
+    return 0;
 }
