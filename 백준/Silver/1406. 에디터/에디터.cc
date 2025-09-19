@@ -13,6 +13,9 @@ stack<char> bef, aft;
 
 int main() {
 	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
 	cin >> word;
 	int N = word.size();
 	rep(i, 0, N) {
@@ -20,49 +23,39 @@ int main() {
 	}
 	cin >> M;
 	rep(i, 0, M) {
-		char cmd, val;
+		char cmd;
 		cin >> cmd;
 		if (cmd == 'L') {
-			if (!bef.size()) {
-				continue;
+			if (!bef.empty()) {
+				aft.push(bef.top());
+				bef.pop();
 			}
-			aft.push(bef.top());
-			bef.pop();
 		}
 		else if (cmd == 'D') {
-			if (!aft.size()) {
-				continue;
+			if (!aft.empty()) {
+				bef.push(aft.top());
+				aft.pop();
 			}
-			bef.push(aft.top());
-			aft.pop();
 		}
 		else if (cmd == 'B') {
-			if (!bef.size()) {
-				continue;
+			if (!bef.empty()) {
+				bef.pop();
 			}
-			bef.pop();
 		}
-		else {
+		else { // 'P'
+			char val;
 			cin >> val;
 			bef.push(val);
 		}
 	}
-	vector<char> arr;
-	arr.resize(bef.size() + aft.size());
+	while (!bef.empty()) {
+		aft.push(bef.top());
+		bef.pop();
+	}
+	while (!aft.empty()) {
+		cout << aft.top();
+		aft.pop();
+	}
 
-	while (aft.size() || bef.size()) {
-		int idx = 0;
-		while (aft.size()) {
-			arr[bef.size() + idx++] = aft.top();
-			aft.pop();
-		}
-		while (bef.size()) {
-			arr[bef.size() - 1] = bef.top();
-			bef.pop();
-		}
-	}
-	for (const char a : arr) {
-		cout << a;
-	}
 	return 0;
 }
