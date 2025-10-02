@@ -24,30 +24,30 @@ vector<int> getPi(const vector<int>& p) {
 void solve() {
 	string item, word, ori;
 	cin >> item >> word >> ori;
-	int char_to_idx[256] = { 0 };
+	int c2idx[256] = { 0 };
 	rep(i, 0, item.size()) {
-		char_to_idx[(unsigned char)item[i]] = i;
+		c2idx[item[i]] = i;
 	}
 
 	vector<int> word_int(word.size());
 	rep(i, 0, word.size()) {
-		word_int[i] = char_to_idx[(unsigned char)word[i]];
+		word_int[i] = c2idx[word[i]];
 	}
 	vector<int> pi = getPi(word_int);
 
-	vector<int> solutions;
+	vector<int> sols;
 	rep(shift, 0, item.size()) {
-		int match_count = 0;
+		int cnt = 0;
 		int j = 0;
 		rep(i, 0, ori.size()) {
-			int current_char_idx = char_to_idx[(unsigned char)ori[i]];
-			int decrypted_idx = (current_char_idx - shift + item.size()) % item.size();
-			while (j > 0 && decrypted_idx != word_int[j]) {
+			int cidx = c2idx[ori[i]];
+			int didx = (cidx - shift + item.size()) % item.size();
+			while (j > 0 && didx != word_int[j]) {
 				j = pi[j - 1];
 			}
-			if (decrypted_idx == word_int[j]) {
+			if (didx == word_int[j]) {
 				if (j == word.size() - 1) {
-					match_count++;
+					cnt++;
 					j = pi[j];
 				}
 				else {
@@ -55,19 +55,19 @@ void solve() {
 				}
 			}
 		}
-		if (match_count == 1) {
-			solutions.push_back(shift);
+		if (cnt == 1) {
+			sols.push_back(shift);
 		}
 	}
-	if (solutions.size() == 0) {
+	if (sols.size() == 0) {
 		cout << "no solution\n";
 	}
-	else if (solutions.size() == 1) {
-		cout << "unique: " << solutions[0] << "\n";
+	else if (sols.size() == 1) {
+		cout << "unique: " << sols[0] << "\n";
 	}
 	else {
 		cout << "ambiguous:";
-		for (int sol : solutions) {
+		for (int sol : sols) {
 			cout << " " << sol;
 		}
 		cout << "\n";
