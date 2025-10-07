@@ -26,12 +26,11 @@ int main() {
 		queue<pair<int, int>> q;
 		q.push({ mid[0].first,mid[0].second });
 		while (q.size()) {
-			auto curp = q.front(); q.pop();
-			int cy = curp.first, cx = curp.second;
+			int cy = q.front().first, cx = q.front().second;
+			q.pop();
 			rep(i, 1, N + 2) {
 				int ny = mid[i].first, nx = mid[i].second;
-				int dy = abs(ny - cy), dx = abs(nx - cx);
-				if (v[i] || (dy + dx > 1000)) {
+				if (v[i] || (abs(ny - cy) + abs(nx - cx) > 1000)) {
 					continue;
 				}
 				v[i] = 1;
