@@ -7,7 +7,6 @@ using LL = long long;
 using namespace std;
 
 int N, mat[500][500], dp[500][500], ans;
-bool v[500][500];
 int dys[] = { 1, 0, -1, 0 };
 int dxs[] = { 0, 1, 0, -1 };
 
