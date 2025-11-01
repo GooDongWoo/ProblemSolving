@@ -1,9 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
-#include <queue>
-#include <string>
-#include <cstring>
 
 #define rep(i,a,b) for(int i=a;i<b;++i)
 using LL = long long;
@@ -28,8 +24,7 @@ bool dfs(int r, int c) {
 		if (!(0 <= nr && nr < R && 0 <= nc && nc < C) || mat[nr][nc] == 'x' || v[nr][nc]) {
 			continue;
 		}
-		bool ret = dfs(nr, nc);
-		if (ret) {
+		if (dfs(nr, nc)) {
 			return true;
 		}
 	}
@@ -46,8 +41,7 @@ int main() {
 		}
 	}
 	rep(i, 0, R) {
-		int startRow = R - 1 - i;
-		dfs(startRow, 0);
+		dfs(R - 1 - i, 0);
 	}
 	cout << ans;
 
