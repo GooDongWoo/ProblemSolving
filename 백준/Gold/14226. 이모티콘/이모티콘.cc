@@ -9,7 +9,7 @@ using LL = long long;
 
 using namespace std;
 
-const int MAX = 1100;
+const int MAX = 1001;
 int N, v[MAX][MAX];
 queue<pair<int, int>> q;
 
