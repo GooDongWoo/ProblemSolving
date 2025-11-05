@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <stack>
+#include <string>
 
 #define rep(i,a,b) for(int i=a;i<b;++i)
 using LL = long long;
@@ -26,8 +27,8 @@ int main() {
 		ans[N - 1 - i] = ((stck.size() == 0) ? -1: stck.top().second);
 		stck.push({ cnter[arr[N - 1 - i]],arr[N - 1 - i] });
 	}
-	rep(i, 0, N) {
-		cout << ans[i] << ' ';
-	}
+	string resultText = "";
+	for (int i = 0; i < N; i++) { resultText += to_string(ans[i]); resultText += " "; }
+	cout << resultText;
 	return 0;
 }
