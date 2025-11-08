@@ -33,6 +33,10 @@ int main() {
 	while (q.size()) {
 		auto curp = q.front(); q.pop();
 		int cy = curp.y, cx = curp.x, ck = curp.k;
+		if (cy == N - 1 && cx == M - 1) {
+			cout << v[N - 1][M - 1][ck];
+			return 0;
+		}
 		rep(i, 0, 4) {
 			int ny = cy + dys[i];
 			int nx = cx + dxs[i];
@@ -49,10 +53,6 @@ int main() {
 			}
 		}
 	}
-	int ans = 1e9;
-	rep(i, 0, K + 1) {
-		ans = min(ans, ((v[N - 1][M - 1][i] == 0) ? (int)1e9 : v[N - 1][M - 1][i]));
-	}
-	cout << (ans == 1e9 ? -1 : ans);
+	cout << -1;
 	return 0;
 }
