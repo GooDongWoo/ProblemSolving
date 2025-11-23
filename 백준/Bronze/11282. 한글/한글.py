@@ -1,3 +1,2 @@
 N = int(input())
-result_code = 44031 + N
-print(chr(result_code))
+print(chr(ord("가") + N-1))
