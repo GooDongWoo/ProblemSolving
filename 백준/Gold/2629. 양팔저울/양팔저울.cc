@@ -39,11 +39,6 @@ int main() {
 		dp1.swap(dp2);
 	}
 	cin >> M;
-	bool dp[15001];
-	rep(i, 0, 15001)
-	{
-		dp[i] = dp1[ZERO + i];
-	}
 	rep(i, 0, M)
 	{
 		int target;
