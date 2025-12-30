@@ -1,11 +1,5 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
-#include <map>
-#include <queue>
-#include <cmath>
-#include <string>
-#include <cstring>
+
 
 #define rep(i,a,b) for(int i=a;i<b;++i)
 using LL = long long;
