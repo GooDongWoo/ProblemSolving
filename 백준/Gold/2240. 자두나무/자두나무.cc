@@ -24,17 +24,11 @@ int main() {
 		dp[0][i][0] = dp[0][i - 1][0] + (val == 1);
 		rep(j, 0, 2) {
 			int offset = (j == val - 1) ? 1 : 0;
-			rep(k, 1, W + 1) {
-				dp[j][i][k] = max(dp[j][i - 1][k] + offset, dp[counter[j]][i - 1][k - 1] + offset);
-			}
+			rep(k, 1, W + 1) dp[j][i][k] = max(dp[j][i - 1][k] + offset, dp[counter[j]][i - 1][k - 1] + offset);
 		}
 	}
 	int ans = 0;
-	rep(i, 0, 2) {
-		rep(j, 0, W + 1) {
-			ans = max(ans, dp[i][T][j]);
-		}
-	}
+	rep(i, 0, 2) rep(j, 0, W + 1) ans = max(ans, dp[i][T][j]);
 	cout << ans;
 	return 0;
 }
