@@ -2,58 +2,74 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
-#include <string>
-#include <cstring>
 
 #define rep(i,a,b) for(int (i)=(a);i<(b);++(i))
-
 using namespace std;
 
-int T, N, D, C, v[10000];
-vector<vector<pair<int, int>>> adjv;
+const int INF = 1e9;
+const int MAX_N = 10005;
+
+vector<pair<int, int>> adj[MAX_N];
+int dist[MAX_N];
+
+void solve() {
+    int N, D, C;
+    cin >> N >> D >> C;
+    C--; 
+
+    rep(i, 0, N) {
+        adj[i].clear();
+        dist[i] = INF;
+    }
+
+    rep(i, 0, D) {
+        int a, b, s;
+        cin >> a >> b >> s;
+        a--; b--;
+        adj[b].push_back({ s, a });
+    }
+
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    
+    dist[C] = 0;
+    pq.push({ 0, C });
+
+    while (!pq.empty()) {
+        int cw = pq.top().first;
+        int cur = pq.top().second;
+        pq.pop();
+
+        if (dist[cur] < cw) continue;
+
+        for (const auto& edge : adj[cur]) {
+            int time = edge.first;
+            int next_node = edge.second;
+            int next_dist = cw + time;
+
+            if (dist[next_node] > next_dist) {
+                dist[next_node] = next_dist;
+                pq.push({ next_dist, next_node });
+            }
+        }
+    }
+
+    int cnt = 0;
+    int max_time = 0;
+    rep(i, 0, N) {
+        if (dist[i] != INF) {
+            cnt++;
+            if (dist[i] > max_time) max_time = dist[i];
+        }
+    }
+    cout << cnt << ' ' << max_time << '\n';
+}
 
 int main() {
-	cin.tie(NULL)->sync_with_stdio(false);
-	cout.tie(NULL);
-	cin >> T;
-	rep(test_case, 0, T) {
-		cin >> N >> D >> C; C--;
-		// initialize
-		adjv.clear();
-		rep(i, 0, N) {
-			v[i] = 1e9;
-		}
-		adjv.resize(N);
-
-		//setting
-		rep(i, 0, D) {
-			int a, b, s;
-			cin >> a >> b >> s;
-			a--; b--;
-			//adjv[a].push_back({ s,b });
-			adjv[b].push_back({ s,a });
-		}
-		priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-		pq.push({ 0,C });
-		int ncnter = 0, tcnter = 0;
-		while (pq.size()) {
-			auto curp = pq.top(); pq.pop();
-			int cw = curp.first, cur = curp.second;
-			if (v[cur] <= cw) {
-				continue;
-			}
-			v[cur] = cw;
-			ncnter++;
-			tcnter = max(tcnter, cw);
-			for (const auto& nxtp : adjv[cur]) {
-				int dw = nxtp.first, nxt = nxtp.second;
-				if (v[nxt] <= cw + dw) {
-					continue;
-				}
-				pq.push({ cw + dw,nxt });
-			}
-		}
-		cout << ncnter << ' ' << tcnter << '\n';
-	}
-	return 0;
+    cin.tie(NULL)->sync_with_stdio(false);
+    int T;
+    cin >> T;
+    while (T--) {
+        solve();
+    }
+    return 0;
 }
