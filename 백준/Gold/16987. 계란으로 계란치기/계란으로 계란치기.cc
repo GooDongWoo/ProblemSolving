@@ -1,65 +1,52 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
-#include <queue>
-#include <map>
-#include <cmath>
-#include <string>
-#include <cstring>
 
 #define rep(i,a,b) for(int (i)=(a);i<(b);++(i))
 
 using namespace std;
-using LL = long long;
 
 int N, arr[8][2], ans;
 
-void bt(int idx) {
-	if (idx >= N) {
-		int mini = 0;
-		rep(i, 0, N) {
-			if (arr[i][0] <= 0) {
-				mini++;
-			}
-		}
-		ans = max(mini, ans);
-	}
-	else {
-		// 현재 계란이 박살
-		if (arr[idx][0] <= 0) {
-			bt(idx + 1);
-		}
-		else {
-			bool isany = false;
-			//현재 계란이 살아있음
-			rep(i, 0, N) {
-				// 부딫힐 계란이 같거나 박살
-				if (i == idx || arr[i][0] <= 0) {
-					continue;
-				}
-				//부딫힐 계란을 부딫힌다.
-				isany = true;
-				arr[i][0] -= arr[idx][1];
-				arr[idx][0] -= arr[i][1];
-				bt(idx + 1);
-				arr[i][0] += arr[idx][1];
-				arr[idx][0] += arr[i][1];
-			}
-			if (!isany) {
-				bt(idx + 1);
-			}
-		}
-	}
+// cnt: 현재까지 깨진 계란의 수
+void bt(int idx, int cnt) {
+    if (idx == N) {
+        ans = max(ans, cnt);
+        return;
+    }
+
+    if (arr[idx][0] <= 0 || cnt == N - 1) {
+        bt(idx + 1, cnt);
+        return;
+    }
+
+    rep(i, 0, N) {
+        if (i == idx || arr[i][0] <= 0) continue;
+
+        arr[i][0] -= arr[idx][1];
+        arr[idx][0] -= arr[i][1];
+
+        int broken = 0;
+        if (arr[idx][0] <= 0) broken++;
+        if (arr[i][0] <= 0) broken++;
+
+        bt(idx + 1, cnt + broken);
+
+        arr[idx][0] += arr[i][1];
+        arr[i][0] += arr[idx][1];
+    }
 }
 
 int main() {
-	cin.tie(NULL)->sync_with_stdio(false);
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	cin >> N;
-	rep(i, 0, N) {
-		cin >> arr[i][0] >> arr[i][1];
-	}
-	bt(0);
-	cout << ans;
-	return 0;
+    if (!(cin >> N)) return 0;
+    rep(i, 0, N) {
+        cin >> arr[i][0] >> arr[i][1];
+    }
+
+    bt(0, 0);
+    cout << ans;
+
+    return 0;
 }
