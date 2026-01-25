@@ -89,6 +89,10 @@ int main() {
 			}
 			dict[nxtval] = dict[cur] + 1;
 			q.push(nxtval);
+            if (nxtval == ANS) {
+				cout << dict[nxtval] - 1;
+				return 0;
+			}
 		}
 	}
 	cout << -1;
