@@ -1,89 +1,89 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <queue>
-#include <cmath>
-#include <map>
 #include <unordered_map>
-#include <cmath>
-#include <string>
-#include <cstring>
-
-#define rep(i,a,b) for(int (i)=(a);i<(b);++(i))
 
 using namespace std;
-using LL = long long;
-using UI = unsigned int;
 
-int T, K;
+static char buf[1 << 20]; 
+static int idx = 0, len = 0;
+
+inline char ReadChar() {
+    if (idx == len) {
+        len = fread(buf, 1, 1 << 20, stdin);
+        idx = 0;
+        if (len == 0) return EOF;
+    }
+    return buf[idx++];
+}
+
+inline int ReadInt() {
+    int sum = 0;
+    char c = ReadChar();
+    bool minus = false;
+    while (c < '0' || c > '9') {
+        if (c == '-') minus = true;
+        c = ReadChar();
+    }
+    while (c >= '0' && c <= '9') {
+        sum = sum * 10 + (c - '0');
+        c = ReadChar();
+    }
+    return minus ? -sum : sum;
+}
+
+inline char ReadCommand() {
+    char c = ReadChar();
+    while (c != 'I' && c != 'D') c = ReadChar();
+    return c;
+}
 
 int main() {
-	cin.tie(NULL)->sync_with_stdio(false);
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	cin >> T;
-	rep(test_case, 0, T) {
-		priority_queue<int> maxq;
-		priority_queue<int, vector<int>, greater<>> minq;
-		unordered_map<int, int> dict;
+    int T = ReadInt();
+    while (T--) {
+        priority_queue<int> maxq;
+        priority_queue<int, vector<int>, greater<int>> minq;
+        unordered_map<int, int> dict;
 
-		cin >> K;
-		dict.reserve(K);
+        int K = ReadInt();
+        dict.reserve(K);
 
-		rep(mini, 0, K) {
-			char cmd;
-			int val;
-			cin >> cmd >> val;
-			switch (cmd) {
-			case('I'):
-				maxq.push(val);
-				minq.push(val);
-				dict[val]++;
-				break;
-			case('D'):
-				if (val == 1) {
-					while (1) {
-						if (maxq.size()) {
-							int cur = maxq.top();
-							maxq.pop();
-							if (dict[cur] > 0) {
-								dict[cur]--;
-								break;
-							}
-						}
-						else {
-							break;
-						}
-					}
-				}
-				else {// val == -1
-					while (1) {
-						if (minq.size()) {
-							int cur = minq.top();
-							minq.pop();
-							if (dict[cur] > 0) {
-								dict[cur]--;
-								break;
-							}
-						}
-						else {
-							break;
-						}
-					}
-				}
-				break;
-			}
-		}
-		while (maxq.size() && dict[maxq.top()] <= 0) {
-			maxq.pop();
-		}
-		if (maxq.size() == 0) {
-			cout << "EMPTY\n";
-			continue;
-		}
-		while (minq.size() && dict[minq.top()] <= 0) {
-			minq.pop();
-		}
-		cout << maxq.top() << ' ' << minq.top() << '\n';
-	}
-	return 0;
+        for (int i = 0; i < K; ++i) {
+            char cmd = ReadCommand();
+            int val = ReadInt();
+
+            if (cmd == 'I') {
+                maxq.push(val);
+                minq.push(val);
+                dict[val]++;
+            } else {
+                if (val == 1) {
+                    while (!maxq.empty() && dict[maxq.top()] == 0) maxq.pop();
+                    if (!maxq.empty()) {
+                        dict[maxq.top()]--;
+                        maxq.pop();
+                    }
+                } else {
+                    while (!minq.empty() && dict[minq.top()] == 0) minq.pop();
+                    if (!minq.empty()) {
+                        dict[minq.top()]--;
+                        minq.pop();
+                    }
+                }
+            }
+        }
+
+        while (!maxq.empty() && dict[maxq.top()] == 0) maxq.pop();
+        while (!minq.empty() && dict[minq.top()] == 0) minq.pop();
+
+        if (maxq.empty()) {
+            cout << "EMPTY\n";
+        } else {
+            cout << maxq.top() << ' ' << minq.top() << '\n';
+        }
+    }
+    return 0;
 }
