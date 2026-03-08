@@ -45,16 +45,19 @@ vector<vector<int>> RotateCCW(const vector<vector<int>>& arr, int row, int col) 
 	return ret;
 }
 
-void Gravity(vector<vector<int>>& arr, int row, int col) {
-	rep(k, 0, row - 1) {
-		rep(i, 0, row - 1) {
-			rep(j, 0, col) {
-				if (arr[row - 1 - i][j] == -2 && arr[row - 2 - i][j] != -1) {
-					swap(arr[row - 1 - i][j], arr[row - 2 - i][j]);
-				}
-			}
-		}
-	}
+void Gravity(vector<vector<int>>& arr, int N) {
+    for (int j = 0; j < N; j++) {
+        int pointer = N - 1; // 블록이 쌓일 위치
+        for (int i = N - 1; i >= 0; i--) {
+            if (arr[i][j] == -1) { // 장애물(검은 블록) 만나면 포인터 갱신
+                pointer = i - 1;
+            } else if (arr[i][j] != -2) { // 일반/무지개 블록인 경우
+                int val = arr[i][j];
+                arr[i][j] = -2;
+                arr[pointer--][j] = val;
+            }
+        }
+    }
 }
 
 bool FindRowCol(const vector<vector<int>>& arr, int row, int col, int& refRow, int& refCol) {
@@ -169,11 +172,11 @@ int main() {
 		int numDeleted = deleteGroup(mat, mat.size(), mat[0].size(), cRow, cCol);
 		score += numDeleted * numDeleted;
 
-		Gravity(mat, mat.size(), mat[0].size());
+		Gravity(mat, mat.size());
 
 		mat = RotateCCW(mat, mat.size(), mat[0].size());
 
-		Gravity(mat, mat.size(), mat[0].size());
+		Gravity(mat, mat.size());
 	}
 	cout << score;
 
